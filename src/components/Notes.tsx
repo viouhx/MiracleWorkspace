@@ -20,6 +20,8 @@ import { useApp, Note } from '../App';
 import { format, parseISO } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
+const DRAFT_ID = '__draft__';
+
 export default function Notes() {
   const { notes, addNote, updateNote, deleteNote } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
@@ -69,9 +71,9 @@ export default function Notes() {
     });
   }, [notes, searchQuery, selectedTags]);
 
-  // Auto-save effect
+  // Auto-save effect (draft 제외)
   useEffect(() => {
-    if (selectedNote && isEditing) {
+    if (selectedNote && isEditing && selectedNote.id !== DRAFT_ID) {
       const timeoutId = setTimeout(() => {
         if (editTitle.trim() || editContent.trim()) {
           updateNote(selectedNote.id, {
@@ -86,27 +88,24 @@ export default function Notes() {
     }
   }, [editTitle, editContent, editTags, selectedNote, isEditing, updateNote]);
 
+  // 새 메모: 저장 전까지는 로컬 초안만 열기 (스토어에 추가 X)
   const handleCreateNote = () => {
-    const newNote = {
-      title: '새 메모',
+    const draft: Note = {
+      id: DRAFT_ID,
+      title: '',
       content: '',
       tags: [],
-      isPinned: false
+      isPinned: false,
+      createdAt: '',
+      updatedAt: ''
     };
-    
-    addNote(newNote);
-    
-    // Select the new note (it will be the first in the list due to creation time)
-    setTimeout(() => {
-      const createdNote = notes.find(note => note.title === '새 메모' && note.content === '');
-      if (createdNote) {
-        setSelectedNote(createdNote);
-        setIsEditing(true);
-        setEditTitle(createdNote.title);
-        setEditContent(createdNote.content);
-        setEditTags(createdNote.tags.join(', '));
-      }
-    }, 100);
+
+    setSelectedNote(draft);
+    setIsEditing(true);
+    setIsPreview(false);
+    setEditTitle('');
+    setEditContent('');
+    setEditTags('');
   };
 
   const handleSelectNote = (note: Note) => {
@@ -123,6 +122,13 @@ export default function Notes() {
   };
 
   const handleDeleteNote = (noteId: string) => {
+    // 초안이면 저장된 게 없으니 그냥 닫기
+    if (selectedNote?.id === DRAFT_ID) {
+      setSelectedNote(null);
+      setIsEditing(false);
+      return;
+    }
+
     deleteNote(noteId);
     if (selectedNote?.id === noteId) {
       setSelectedNote(null);
@@ -135,15 +141,35 @@ export default function Notes() {
     setIsPreview(false);
   };
 
+  // 저장 버튼: 초안이면 addNote로 최초 저장, 기존 노트면 updateNote
   const handleSaveEdit = () => {
-    if (selectedNote) {
-      updateNote(selectedNote.id, {
+    if (!selectedNote || selectedNote.id === DRAFT_ID) {
+      // 완전 빈 내용이면 저장하지 않고 닫기 (원하면 저장하도록 바꿔도 OK)
+      if (!editTitle.trim() && !editContent.trim()) {
+        setIsEditing(false);
+        setSelectedNote(null);
+        return;
+      }
+
+      addNote({
         title: editTitle.trim() || '제목 없음',
         content: editContent,
-        tags: editTags.split(',').map(tag => tag.trim()).filter(Boolean)
+        tags: editTags.split(',').map(tag => tag.trim()).filter(Boolean),
+        isPinned: false
       });
+
       setIsEditing(false);
+      setSelectedNote(null);
+      return;
     }
+
+    // 기존 노트 편집 저장
+    updateNote(selectedNote.id, {
+      title: editTitle.trim() || '제목 없음',
+      content: editContent,
+      tags: editTags.split(',').map(tag => tag.trim()).filter(Boolean)
+    });
+    setIsEditing(false);
   };
 
   const renderMarkdown = (content: string) => {
@@ -293,16 +319,20 @@ export default function Notes() {
             <Card className="h-full">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
                 <div className="flex items-center space-x-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleTogglePin(selectedNote.id, selectedNote.isPinned)}
-                  >
-                    <Pin className={`h-4 w-4 ${selectedNote.isPinned ? 'text-yellow-500' : 'text-muted-foreground'}`} />
-                  </Button>
-                  <span className="text-sm text-muted-foreground">
-                    {format(parseISO(selectedNote.updatedAt), 'PPpp', { locale: ko })}
-                  </span>
+                  {selectedNote.id !== DRAFT_ID && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleTogglePin(selectedNote.id, selectedNote.isPinned)}
+                    >
+                      <Pin className={`h-4 w-4 ${selectedNote.isPinned ? 'text-yellow-500' : 'text-muted-foreground'}`} />
+                    </Button>
+                  )}
+                  {selectedNote.id !== DRAFT_ID && (
+                    <span className="text-sm text-muted-foreground">
+                      {format(parseISO(selectedNote.updatedAt), 'PPpp', { locale: ko })}
+                    </span>
+                  )}
                 </div>
                 
                 <div className="flex items-center space-x-2">
@@ -312,6 +342,7 @@ export default function Notes() {
                         variant="ghost"
                         size="sm"
                         onClick={() => setIsPreview(!isPreview)}
+                        disabled={selectedNote.id === DRAFT_ID}
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
@@ -368,7 +399,7 @@ export default function Notes() {
                 ) : (
                   <>
                     <div>
-                      <h2 className="text-xl font-semibold mb-2">{selectedNote.title}</h2>
+                      <h2 className="text-xl font-semibold mb-2">{selectedNote.title || '(제목 없음)'}</h2>
                       {selectedNote.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1 mb-4">
                           {selectedNote.tags.map((tag) => (
