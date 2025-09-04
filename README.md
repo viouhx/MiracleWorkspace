@@ -86,9 +86,10 @@ CRUD, 우선순위(P1/P2/P3), 상태(todo/in-progress/done), 태그, 마감일
 
 데이터 관리: JSON 내보내기/가져오기, 전체 초기화
 
-⌨️ Keyboard Shortcuts
-액션	단축키
-명령 팔레트 열기	⌘/Ctrl + K
-새 할 일	⌘/Ctrl + T
-새 일정	⌘/Ctrl + E
-새 메모	⌘/Ctrl + N
+| 액션        | 단축키        |
+| --------- | ---------- |
+| 명령 팔레트 열기 | ⌘/Ctrl + K |
+| 새 할 일     | ⌘/Ctrl + T |
+| 새 일정      | ⌘/Ctrl + E |
+| 새 메모      | ⌘/Ctrl + N |
+
