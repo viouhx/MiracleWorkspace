@@ -3,11 +3,11 @@
 ## 시스템 아키텍처
 
 ### 컴포넌트 다이어그램
-```mermaid
+
 graph LR
   %% Hosting & Load
   Vercel[(Vercel Static Hosting)] -->|serves| Browser[사용자 브라우저]
-  Browser -->|loads| SPA[SPA (React + Vite 번들)]
+  Browser -->|loads| SPA["SPA (React + Vite 번들)"]
 
   %% SPA 내부 구성
   subgraph App["브라우저 내 SPA"]
@@ -15,10 +15,10 @@ graph LR
 
     subgraph UI["UI Layer"]
       Tailwind[Tailwind CSS]
-      Radix[Radix/shadcn UI (Radix Primitives)]
+      Radix["Radix/shadcn UI"]
       Lucide[lucide-react 아이콘]
-      Motion[motion/react 애니메이션]
-      Sonner[sonner 토스트]
+      Motion["motion/react 애니메이션"]
+      Sonner["sonner 토스트"]
     end
 
     subgraph Features["Feature Screens (React Router)"]
@@ -27,15 +27,15 @@ graph LR
       Calendar[Calendar]
       Notes[Notes]
       Settings[Settings]
-      CmdPalette[CommandPalette (⌘/Ctrl+K)]
+      CmdPalette["CommandPalette (⌘/Ctrl+K)"]
       SideBar[Sidebar]
     end
 
     subgraph State["AppContext (React Context API)"]
-      CRUD[CRUD: add/update/delete]
+      CRUD["CRUD: add/update/delete"]
       Search[searchItems]
-      Theme[next-themes + prefers-color-scheme]
-      DateFns[date-fns 유틸]
+      Theme["next-themes + prefers-color-scheme"]
+      DateFns["date-fns 유틸"]
     end
 
     Storage[(LocalStorage)]
@@ -47,10 +47,8 @@ graph LR
   CmdPalette --> State
   SideBar --> State
   State <--> Storage
-```md
-### 앱 구동 플로우(시퀀스)
-```mermaid
-sequenceDiagram
+
+  sequenceDiagram
   participant U as User
   participant B as Browser
   participant V as Vercel CDN
@@ -68,54 +66,52 @@ sequenceDiagram
   U->>SPA: 작업 추가/수정/삭제
   SPA->>LS: 상태 변경 영속화
   U->>SPA: 테마 변경(light/dark/system)
-  SPA->>B: <html>에 .dark 토글(또는 시스템 추종)
-```md
-### 데이터 모델(클래스 다이어그램)
-```mermaid
+  SPA->>B: &lt;html&gt;에 .dark 토글(또는 시스템 추종)
+
 classDiagram
-class Task {
-  +string id
-  +string title
-  +string description
-  +string[] tags
-  +enum priority (P1|P2|P3)
-  +enum status (todo|in-progress|done)
-  +string? dueDate
-  +string createdAt
-  +string updatedAt
-  +boolean? isRecurring
-  +enum? recurringType (daily|weekly|monthly)
-}
+  class Task {
+    +string id
+    +string title
+    +string description
+    +string[] tags
+    +priority priority (P1|P2|P3)
+    +status status (todo|in-progress|done)
+    +string dueDate
+    +string createdAt
+    +string updatedAt
+    +boolean isRecurring
+    +recurringType recurringType (daily|weekly|monthly)
+  }
 
-class Event {
-  +string id
-  +string title
-  +string description
-  +string? location
-  +string startDate
-  +string endDate
-  +string[] tags
-  +string color
-  +boolean? isRecurring
-  +enum? recurringType (daily|weekly|monthly)
-  +string createdAt
-  +string updatedAt
-}
+  class Event {
+    +string id
+    +string title
+    +string description
+    +string location
+    +string startDate
+    +string endDate
+    +string[] tags
+    +string color
+    +boolean isRecurring
+    +recurringType recurringType (daily|weekly|monthly)
+    +string createdAt
+    +string updatedAt
+  }
 
-class Note {
-  +string id
-  +string title
-  +string content
-  +string[] tags
-  +boolean isPinned
-  +string createdAt
-  +string updatedAt
-}
+  class Note {
+    +string id
+    +string title
+    +string content
+    +string[] tags
+    +boolean isPinned
+    +string createdAt
+    +string updatedAt
+  }
 
-class AppSettings {
-  +enum theme (light|dark|system)
-  +enum startPage (dashboard|tasks)
-  +0|1 weekStartsOn
-  +enum timeFormat ("12"|"24")
-  +boolean focusMode
-}
+  class AppSettings {
+    +theme theme (light|dark|system)
+    +startPage startPage (dashboard|tasks)
+    +int weekStartsOn (0|1)
+    +timeFormat timeFormat (12|24)
+    +boolean focusMode
+  }
