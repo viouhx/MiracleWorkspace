@@ -46,13 +46,13 @@ My Miracle Day는 개인 생산성을 위한 올인원 웹 서비스입니다.
 
 
 ## ✨ Key Features
-1) 대시보드 (Dashboard)
+### 1) 대시보드 (Dashboard)
 
 오늘 날짜/인사, 주요 지표(완료율, 이번 주 진행률, 지연된 할 일, 메모 수)
 
 이번 주 다가오는 일정, 오늘의 할 일, 최근 메모를 한눈에
 
-2) 할 일 (Tasks)
+### 2) 할 일 (Tasks)
 
 CRUD, 우선순위(P1/P2/P3), 상태(todo/in-progress/done), 태그, 마감일
 
