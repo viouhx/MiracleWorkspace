@@ -1,7 +1,6 @@
-# My Miracle Day — 올인원 생산성 앱
+<img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/4cc4a72b-bc4e-4c60-bb26-2397b07cf2c0" /># My Miracle Day — 3 in 1 워크스페이스 서비스
 
-로컬에서 가볍게 돌아가는 할 일 · 캘린더 · 메모 통합 워크스페이스입니다.
-빠른 입력과 검색, 키보드 중심 흐름, 미니멀 UI로 “오늘 할 일”에만 집중할 수 있게 디자인했어요.
+로컬에서 돌아가는 할 일(To-do) · 캘린더 · 메모를 통합한 워크스페이스
 
 ## 🧭 Project Overview
 
