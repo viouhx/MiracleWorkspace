@@ -110,10 +110,6 @@ export default function Dashboard() {
             {format(now, 'PPPP', { locale: ko })}
           </p>
         </div>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          빠른 추가
-        </Button>
       </div>
 
       {/* Stats Cards */}
