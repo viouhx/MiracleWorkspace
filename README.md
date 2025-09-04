@@ -1,8 +1,8 @@
-워크스페이스 서비스 (To-do, Calendar, Memo)
+#워크스페이스 서비스 (To-do, Calendar, Memo)
 
 간단한 올인원 개인 생산성 SPA입니다. 할 일/캘린더/메모를 로컬스토리지로 저장하고, React + Vite + Tailwind + shadcn/ui로 구성했습니다.
 
-🛠 Tech Stack
+#🛠 Tech Stack
 
 React, TypeScript, Vite
 
@@ -12,7 +12,7 @@ motion/react(애니메이션), date-fns(날짜), sonner(토스트)
 
 React Router, LocalStorage
 
-✨ 주요 기능
+#✨ 주요 기능
 
 Tasks: 우선순위(P1~P3), 상태(todo/in-progress/done), 태그/마감일, 필터/검색, 칸반/목록/오늘 뷰
 
