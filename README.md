@@ -15,7 +15,12 @@ My Miracle Day는 개인 생산성을 위한 올인원 웹 서비스입니다.
 
 ## 🛠 Tech Stack
 
-Frontend: React, TypeScript, Vite, React Router
+**Frontend**  
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+
 
 UI: Tailwind CSS, Radix UI Primitives, shadcn/ui 패턴, lucide-react
 
