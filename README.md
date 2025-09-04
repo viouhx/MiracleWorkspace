@@ -1,8 +1,9 @@
-<<<<<<< HEAD
-# 워크스페이스 서비스(To-do, Calendar, Memo)
-=======
-#워크스페이스(To-do, Calendar, Memo)
->>>>>>> e1dca4b (chore: add vercel SPA rewrite + local changes)
+# 워크스페이스 서비스 (To-do, Calendar, Memo)
+
+## 시스템 아키텍처
+
+### 컴포넌트 다이어그램
+```mermaid
 graph LR
   %% Hosting & Load
   Vercel[(Vercel Static Hosting)] -->|serves| Browser[사용자 브라우저]
@@ -46,3 +47,75 @@ graph LR
   CmdPalette --> State
   SideBar --> State
   State <--> Storage
+```md
+### 앱 구동 플로우(시퀀스)
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant B as Browser
+  participant V as Vercel CDN
+  participant SPA as React App(AppProvider)
+  participant LS as LocalStorage
+  participant R as React Router
+
+  U->>B: 앱 주소 접속
+  B->>V: 정적 자산 요청(HTML/CSS/JS)
+  V-->>B: 번들 응답
+  B->>SPA: JS 번들 부팅
+  SPA->>LS: tasks/events/notes/settings 로드
+  LS-->>SPA: JSON 상태 반환
+  SPA->>R: startPage 라우팅(Dashboard/Tasks 등)
+  U->>SPA: 작업 추가/수정/삭제
+  SPA->>LS: 상태 변경 영속화
+  U->>SPA: 테마 변경(light/dark/system)
+  SPA->>B: <html>에 .dark 토글(또는 시스템 추종)
+```md
+### 데이터 모델(클래스 다이어그램)
+```mermaid
+classDiagram
+class Task {
+  +string id
+  +string title
+  +string description
+  +string[] tags
+  +enum priority (P1|P2|P3)
+  +enum status (todo|in-progress|done)
+  +string? dueDate
+  +string createdAt
+  +string updatedAt
+  +boolean? isRecurring
+  +enum? recurringType (daily|weekly|monthly)
+}
+
+class Event {
+  +string id
+  +string title
+  +string description
+  +string? location
+  +string startDate
+  +string endDate
+  +string[] tags
+  +string color
+  +boolean? isRecurring
+  +enum? recurringType (daily|weekly|monthly)
+  +string createdAt
+  +string updatedAt
+}
+
+class Note {
+  +string id
+  +string title
+  +string content
+  +string[] tags
+  +boolean isPinned
+  +string createdAt
+  +string updatedAt
+}
+
+class AppSettings {
+  +enum theme (light|dark|system)
+  +enum startPage (dashboard|tasks)
+  +0|1 weekStartsOn
+  +enum timeFormat ("12"|"24")
+  +boolean focusMode
+}
