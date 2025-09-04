@@ -1,4 +1,4 @@
-# My Miracle Day — 3 in 1 워크스페이스 서비스<img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/4cc4a72b-bc4e-4c60-bb26-2397b07cf2c0" />
+# My Miracle Day — 3 in 1 워크스페이스 서비스<img width="10" height="10" alt="image" src="https://github.com/user-attachments/assets/4cc4a72b-bc4e-4c60-bb26-2397b07cf2c0" />
 
 로컬에서 돌아가는 할 일(To-do) · 캘린더 · 메모를 통합한 워크스페이스
 
