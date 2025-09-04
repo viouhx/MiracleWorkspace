@@ -22,13 +22,28 @@ My Miracle Day는 개인 생산성을 위한 올인원 웹 서비스입니다.
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 
 
-UI: Tailwind CSS, Radix UI Primitives, shadcn/ui 패턴, lucide-react
+**UI**  
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Radix UI](https://img.shields.io/badge/Radix_UI-161618?style=for-the-badge&logo=radixui&logoColor=white)
+![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge)
+![lucide-react](https://img.shields.io/badge/lucide--react-18181B?style=for-the-badge&logo=lucide&logoColor=white)
 
-State & Storage: React Context, LocalStorage
 
-UX: cmdk(명령 팔레트), date-fns(날짜 유틸), motion/react(애니메이션), sonner(토스트)
+**State & Storage**  
+![React Context](https://img.shields.io/badge/React%20Context-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![LocalStorage](https://img.shields.io/badge/LocalStorage-9E9E9E?style=for-the-badge)
 
-Deploy: Vercel (✔️ vercel.json SPA rewrite 포함)
+
+**UX**  
+![cmdk](https://img.shields.io/badge/cmdk-111827?style=for-the-badge)
+![date-fns](https://img.shields.io/badge/date--fns-008F62?style=for-the-badge&logo=date-fns&logoColor=white)
+![motion/react](https://img.shields.io/badge/Framer%20Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+![sonner](https://img.shields.io/badge/sonner-0F172A?style=for-the-badge)
+
+
+**Deploy**  
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
 
 ## ✨ Key Features
 1) 대시보드 (Dashboard)
