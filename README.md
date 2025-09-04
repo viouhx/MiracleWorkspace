@@ -3,12 +3,12 @@
 로컬에서 가볍게 돌아가는 할 일 · 캘린더 · 메모 통합 워크스페이스입니다.
 빠른 입력과 검색, 키보드 중심 흐름, 미니멀 UI로 “오늘 할 일”에만 집중할 수 있게 디자인했어요.
 
-🧭 Project Overview
+## 🧭 Project Overview
 
 My Miracle Day는 개인 생산성을 위한 올인원 웹 앱입니다.
 하루 일정을 캘린더로 훑고, 중요한 태스크를 체크하며, 필요한 아이디어를 메모까지—모두 한 화면 흐름으로 다룹니다. 데이터는 LocalStorage 기반으로 저장되어 가볍고 즉각적입니다.
 
-🎯 Project Motivation
+## 🎯 Project Motivation
 
 복잡한 툴 대신, 빠른 입력 → 즉시 반영 → 바로 실행의 사이클을 만들고 싶었습니다.
 무거운 동기화나 팀 협업 기능보다, 개인의 루틴을 견고하게 만드는 기본기에 집중했습니다.
@@ -19,7 +19,7 @@ My Miracle Day는 개인 생산성을 위한 올인원 웹 앱입니다.
 
 키보드 중심 UX와 최소한의 애니메이션(포커스 모드)
 
-🛠 Tech Stack
+## 🛠 Tech Stack
 
 Frontend: React, TypeScript, Vite, React Router
 
@@ -31,7 +31,7 @@ UX: cmdk(명령 팔레트), date-fns(날짜 유틸), motion/react(애니메이�
 
 Deploy: Vercel (✔️ vercel.json SPA rewrite 포함)
 
-✨ Key Features
+## ✨ Key Features
 1) 대시보드 (Dashboard)
 
 오늘 날짜/인사, 주요 지표(완료율, 이번 주 진행률, 지연된 할 일, 메모 수)
@@ -85,6 +85,8 @@ CRUD, 우선순위(P1/P2/P3), 상태(todo/in-progress/done), 태그, 마감일
 시작 페이지(대시보드/할 일), 주 시작 요일(일/월), 시간 형식(12/24h)
 
 데이터 관리: JSON 내보내기/가져오기, 전체 초기화
+
+## ⌨️ Keyboard Shortcuts
 
 | 액션        | 단축키        |
 | --------- | ---------- |
