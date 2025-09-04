@@ -1,117 +1,25 @@
-# 워크스페이스 서비스 (To-do, Calendar, Memo)
+워크스페이스 서비스 (To-do, Calendar, Memo)
 
-## 시스템 아키텍처
+간단한 올인원 개인 생산성 SPA입니다. 할 일/캘린더/메모를 로컬스토리지로 저장하고, React + Vite + Tailwind + shadcn/ui로 구성했습니다.
 
-### 컴포넌트 다이어그램
+🛠 Tech Stack
 
-graph LR
-  %% Hosting & Load
-  Vercel[(Vercel Static Hosting)] -->|serves| Browser[사용자 브라우저]
-  Browser -->|loads| SPA["SPA (React + Vite 번들)"]
+React, TypeScript, Vite
 
-  %% SPA 내부 구성
-  subgraph App["브라우저 내 SPA"]
-    direction LR
+Tailwind CSS, shadcn/ui(Radix Primitives), lucide-react
 
-    subgraph UI["UI Layer"]
-      Tailwind[Tailwind CSS]
-      Radix["Radix/shadcn UI"]
-      Lucide[lucide-react 아이콘]
-      Motion["motion/react 애니메이션"]
-      Sonner["sonner 토스트"]
-    end
+motion/react(애니메이션), date-fns(날짜), sonner(토스트)
 
-    subgraph Features["Feature Screens (React Router)"]
-      Dashboard[Dashboard]
-      Tasks[Tasks]
-      Calendar[Calendar]
-      Notes[Notes]
-      Settings[Settings]
-      CmdPalette["CommandPalette (⌘/Ctrl+K)"]
-      SideBar[Sidebar]
-    end
+React Router, LocalStorage
 
-    subgraph State["AppContext (React Context API)"]
-      CRUD["CRUD: add/update/delete"]
-      Search[searchItems]
-      Theme["next-themes + prefers-color-scheme"]
-      DateFns["date-fns 유틸"]
-    end
+✨ 주요 기능
 
-    Storage[(LocalStorage)]
-  end
+Tasks: 우선순위(P1~P3), 상태(todo/in-progress/done), 태그/마감일, 필터/검색, 칸반/목록/오늘 뷰
 
-  %% 흐름
-  UI --> Features
-  Features --> State
-  CmdPalette --> State
-  SideBar --> State
-  State <--> Storage
+Calendar: 월/주/일 뷰, 일정 추가/수정/삭제, 태스크 마감일 표시
 
-  sequenceDiagram
-  participant U as User
-  participant B as Browser
-  participant V as Vercel CDN
-  participant SPA as React App(AppProvider)
-  participant LS as LocalStorage
-  participant R as React Router
+Notes: 태그, 고정, 미리보기/편집, 간단 마크다운 표시
 
-  U->>B: 앱 주소 접속
-  B->>V: 정적 자산 요청(HTML/CSS/JS)
-  V-->>B: 번들 응답
-  B->>SPA: JS 번들 부팅
-  SPA->>LS: tasks/events/notes/settings 로드
-  LS-->>SPA: JSON 상태 반환
-  SPA->>R: startPage 라우팅(Dashboard/Tasks 등)
-  U->>SPA: 작업 추가/수정/삭제
-  SPA->>LS: 상태 변경 영속화
-  U->>SPA: 테마 변경(light/dark/system)
-  SPA->>B: &lt;html&gt;에 .dark 토글(또는 시스템 추종)
+Command Palette: ⌘/Ctrl + K로 전역 이동/빠른 추가
 
-classDiagram
-  class Task {
-    +string id
-    +string title
-    +string description
-    +string[] tags
-    +priority priority (P1|P2|P3)
-    +status status (todo|in-progress|done)
-    +string dueDate
-    +string createdAt
-    +string updatedAt
-    +boolean isRecurring
-    +recurringType recurringType (daily|weekly|monthly)
-  }
-
-  class Event {
-    +string id
-    +string title
-    +string description
-    +string location
-    +string startDate
-    +string endDate
-    +string[] tags
-    +string color
-    +boolean isRecurring
-    +recurringType recurringType (daily|weekly|monthly)
-    +string createdAt
-    +string updatedAt
-  }
-
-  class Note {
-    +string id
-    +string title
-    +string content
-    +string[] tags
-    +boolean isPinned
-    +string createdAt
-    +string updatedAt
-  }
-
-  class AppSettings {
-    +theme theme (light|dark|system)
-    +startPage startPage (dashboard|tasks)
-    +int weekStartsOn (0|1)
-    +timeFormat timeFormat (12|24)
-    +boolean focusMode
-  }
+Settings: 테마(light/dark/system), 시작 페이지, 주 시작 요일, 시간 형식, 포커스 모드
