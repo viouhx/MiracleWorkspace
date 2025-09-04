@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -30,7 +31,7 @@ import { useApp } from '../App';
 interface CommandAction {
   id: string;
   label: string;
-  icon: React.ComponentType<{ size?: number }>;
+  icon: LucideIcon;
   action: () => void;
   group: string;
 }
